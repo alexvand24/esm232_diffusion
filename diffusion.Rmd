@@ -64,7 +64,7 @@ filled.contour(res$qin, xlab="Time", ylab="Distance")
 #res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
 
 #change nx
-res=diff1(initialC=10,nx=1,dx=1,nt=10,dt=1,D=0.5,area=1)
+res=diff1(initialC=10,nx=100,dx=1,nt=10,dt=1,D=0.5,area=1)
 
 filled.contour(res$conc, xlab="Time", ylab="Distance")
 
