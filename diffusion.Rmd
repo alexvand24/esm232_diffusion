@@ -1,6 +1,6 @@
 ---
 title: "Diffusion"
-author: "Alex Vand"
+author: "Gen Chiong, Quin Smith, Alex Vand"
 date: "5/3/2022"
 output: html_document
 ---
@@ -11,53 +11,150 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-Diffusion
-
+# Diffusion
 
 ```{r}
 source("diffusion.R")
-# run our diffusion model (iterative difference equation) with initial concentration of 10, for 8 timestep (size 1m), and 10 space steps (size 1s)
-# using diffusion parameters 0.5 s/m2, 10 m2
-result = diff1(initialC=10, nx=10, dx=1, nt=8, dt=1, D=0.5, area=10)
-# a list is returned with our 3 data frames for concentration (conc), qin and qout
-result
-# used filled contour to plot results
-head(result$conc)
-filled.contour(result$conc, xlab="Time", ylab="Distance")
-# or if you prefer this orientation (Distance on x axis)
-filled.contour(t(result$conc), ylab="Time", xlab="Distance")
 ```
 
-Change parameters (diffusivity D, and space and time steps (dx, dt))
 
+
+# Change parameters (diffusivity D, and space and time steps (dx, dt))
+
+- initialC  initial concentration (mg/L)
+- nx  number of discrete segments (m)
+- dx length of each segment (m)
+- nt  number of discrete time intervals (s)
+- dt  seconds in each time interval (s)
+- D  diffusivity (how easily the chemical diffuses (s/m2)
+- area area of cross section of container (m2)
+
+
+## "original"
 ```{r}
-# changes diffusivity and other parameters particularly
-# diffusivity, dx and dt
-#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=30,D=0.006,area=1)
-
-#compare above res and below
-res=diff1(initialC=10, nx=10, dx=1, nt=8, dt=1, D=0.5, area=10)
+res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
 
 filled.contour(res$conc, xlab="Time", ylab="Distance")
-# we can also see how much material moved from place to place each time step
+
 filled.contour(res$qin, xlab="Time", ylab="Distance")
-# play with time step, space step and parameters
 ```
 
 
+## initialC
 
 
 ```{r}
-# changes diffusivity and other parameters particularly
-# diffusivity, dx and dt
-res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=30,D=0.006,area=1)
-#long dragged out is original
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
 
-#compare above res and below
-#res=diff1(initialC=10, nx=10, dx=1, nt=10, dt=30, D=006, area=1)
+#change initialC
+res=diff1(initialC=100,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
 
 filled.contour(res$conc, xlab="Time", ylab="Distance")
-# we can also see how much material moved from place to place each time step
+
 filled.contour(res$qin, xlab="Time", ylab="Distance")
-# play with time step, space step and parameters
 ```
+
+
+## nx
+
+
+```{r}
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+#change nx
+res=diff1(initialC=10,nx=1,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+filled.contour(res$conc, xlab="Time", ylab="Distance")
+
+filled.contour(res$qin, xlab="Time", ylab="Distance")
+```
+
+
+## dx
+
+```{r}
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+#change dx
+res=diff1(initialC=10,nx=10,dx=10,nt=10,dt=1,D=0.5,area=1)
+
+filled.contour(res$conc, xlab="Time", ylab="Distance")
+
+filled.contour(res$qin, xlab="Time", ylab="Distance")
+```
+
+
+
+## nt
+
+
+```{r}
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+#change nt
+res=diff1(initialC=10,nx=10,dx=1,nt=100,dt=1,D=0.5,area=1)
+
+filled.contour(res$conc, xlab="Time", ylab="Distance")
+
+filled.contour(res$qin, xlab="Time", ylab="Distance")
+```
+
+
+
+## dt
+
+
+```{r}
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+#change dt
+res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=10,D=0.5,area=1)
+
+filled.contour(res$conc, xlab="Time", ylab="Distance")
+
+filled.contour(res$qin, xlab="Time", ylab="Distance")
+```
+
+
+## D
+
+
+```{r}
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+#change D
+res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=5,area=1)
+
+filled.contour(res$conc, xlab="Time", ylab="Distance")
+
+filled.contour(res$qin, xlab="Time", ylab="Distance")
+```
+
+
+## area
+
+
+```{r}
+#original
+#res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=1)
+
+#change area
+res=diff1(initialC=10,nx=10,dx=1,nt=10,dt=1,D=0.5,area=100)
+
+filled.contour(res$conc, xlab="Time", ylab="Distance")
+
+filled.contour(res$qin, xlab="Time", ylab="Distance")
+```
+
+
+
+
+
+
+
